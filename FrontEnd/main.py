@@ -1,30 +1,27 @@
 import streamlit as st
-import dashboard,upload,estimation,report,user
+from pages import dashboard, upload, estimation, report
 
 # Sidebar Navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to", ["Dashboard", "Upload Plan", "Estimation", "Reports", "Settings"])
+page = st.sidebar.radio("Go to", ["Dashboard", "Upload Plan", "Estimation", "Reports"])
 
 # Main content area changes based on selection
 if page == "Dashboard":
     dashboard.show_dashboard()
-elif page == "Upload Plan":
+elif page == "Upload Plan" or st.query_params.get("page", [""])[0] == "upload":
     upload.upload_plan()
 elif page == "Estimation":
     estimation.estimation()
 elif page == "Reports":
     report.generate_report()
-elif page == "Settings":
-    user.user_settings()
 
-
-
+# Custom CSS for dark theme and buttons
 st.markdown(
     """
     <style>
     body {
-        background-color: #2C2C2C;  /* Dark background */
-        color: #f5f5f5;  /* Light text color */
+        background-color: #2C2C2C;
+        color: #f5f5f5;
         font-family: 'Arial', sans-serif;
     }
     
@@ -33,7 +30,7 @@ st.markdown(
     }
 
     .stButton>button {
-        background-color: #4CAF50;  /* Green button */
+        background-color: #4CAF50;
         color: white;
         border: none;
         padding: 10px 20px;
@@ -73,7 +70,3 @@ st.markdown(
     </style>
     """, unsafe_allow_html=True
 )
-
-
-
-
